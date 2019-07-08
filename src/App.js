@@ -101,7 +101,7 @@ class App extends Component {
           })
             .then(response => response.json())
             .then(count => {
-              this.setState(Object.assign(this.state.user, { entries: count}))
+              this.setState(Object.assign(this.state.user, {entries: count}))
             })
 
         }
@@ -114,7 +114,7 @@ class App extends Component {
     if(route==='signout'){
       this.setState({isSignedIn:false});
     }
-    else{
+    else if (route === 'home') {
       this.setState({isSignedIn:true});
     }
     this.setState({route:route});
@@ -130,14 +130,14 @@ class App extends Component {
       {this.state.route === 'home'
         ? <div>
             <Logo/>
-            <Rank/>
+            <Rank name={this.state.user.name} entries={this.state.user.entries}/>
             <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
             <FaceRecognition box={this.state.box} imageUrl={this.state.imageUrl}/>
           </div>
         : (
             this.state.route === 'signin'
             ? <SignIn loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
-            : <Rank name={this.state.user.name} entries={this.state.user.entries}/>
+            : <Register loadUser={this.loadUser} onRouteChange={this.onRouteChange}/>
           )
       }
       </div>
